@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- derived from http://openclipart.org/detail/3330/key-by-barretr-->
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 256" width="256" height="256">
 	<defs>
 		<linearGradient id="gradienteuYOSlOB" gradientUnits="userSpaceOnUse" x1="0.01" y1="0.9" x2="256.01" y2="256">
@@ -26,45 +27,4 @@
 		<path d="M126.1 130.65C125.62 131.83 125.27 133.2 125.27 134.75C125.27 136.3 125.61 137.68 126.09 138.86C126.59 140.1 127.41 141.4 128.5 142.49C135.62 149.54 171.19 184.79 235.23 248.24L237.37 250.36L240.39 250.12L244.1 249.82L249.59 249.36L250.08 243.91L250.78 236.01L251.04 233L248.89 230.86C186.02 168.56 151.09 133.95 144.1 127.03C143 125.94 141.69 125.14 140.44 124.63C139.26 124.16 137.88 123.8 136.31 123.8C134.74 123.8 133.36 124.16 132.18 124.63C130.93 125.14 129.62 125.94 128.52 127.03C127.42 128.11 126.63 129.35 126.1 130.65Z" fill="url(#gradientbDr1a22rB)"></path>
 		<path d="M32.22 126.28C57.37 152.05 62.75 115.76 87.9 89.98C113.04 64.2 148.47 58.66 123.32 32.89C98.18 7.11 57.37 7.13 32.22 32.91C31.83 33.31 31.42 33.71 31.04 34.11C7.06 59.98 7.47 100.9 32.22 126.28ZM83.65 34.13C94.36 45.11 91.68 65.67 77.67 80.03C63.67 94.38 43.62 97.13 32.9 86.15C22.19 75.17 24.88 54.62 38.88 40.26C52.89 25.91 72.94 23.16 83.65 34.13Z" fill="url(#gradienta3JPV4yuMt)"></path>
 	</g>
-	<metadata>
-		<rdf:RDF>
-			<cc:Work>
-				<dc:format>image/svg+xml</dc:format>
-				<dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-				<cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
-				<dc:publisher>
-					<cc:Agent rdf:about="http://openclipart.org/">
-						<dc:title>Openclipart</dc:title>
-					</cc:Agent>
-				</dc:publisher>
-				<dc:title>Key</dc:title>
-				<dc:date>2007-02-27T15:15:43</dc:date>
-				<dc:description>A key icon.</dc:description>
-				<dc:source>http://openclipart.org/detail/3330/key-by-barretr</dc:source>
-				<dc:creator>
-					<cc:Agent>
-						<dc:title>barretr</dc:title>
-					</cc:Agent>
-				</dc:creator>
-				<dc:subject>
-					<rdf:Bag>
-						<rdf:li>clip art</rdf:li>
-						<rdf:li>clipart</rdf:li>
-						<rdf:li>icon</rdf:li>
-						<rdf:li>image</rdf:li>
-						<rdf:li>key</rdf:li>
-						<rdf:li>media</rdf:li>
-						<rdf:li>png</rdf:li>
-						<rdf:li>public domain</rdf:li>
-						<rdf:li>svg</rdf:li>
-					</rdf:Bag>
-				</dc:subject>
-			</cc:Work>
-			<cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
-				<cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
-				<cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
-				<cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
-			</cc:License>
-		</rdf:RDF>
-	</metadata>
 </svg>
