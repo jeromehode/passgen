@@ -1,0 +1,13 @@
+{
+	"name": "Passgen",
+	"short_name": "Passgen",
+	"lang": "en-US",
+	"display": "standalone",
+	"start_url": "/passgen/",
+	"icons": [
+		{
+			"src": "/passgen/key.svg",
+			"sizes": "192x192 512x512"
+		}
+	]
+}
