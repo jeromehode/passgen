@@ -7,7 +7,7 @@
 	"icons": [
 		{
 			"src": "/passgen/key.svg",
-			"sizes": "392x392"
+			"sizes": "128x128"
 		}
 	]
 }
