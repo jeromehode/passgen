@@ -6,7 +6,7 @@
 	"start_url": "/passgen/",
 	"icons": [
 		{
-			"src": "/passgen/key.svg",
+			"src": "/passgen/lock.svg",
 			"sizes": "256x256"
 		}
 	]

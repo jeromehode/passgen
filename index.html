@@ -6,36 +6,88 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="manifest" href="manifest.json" />
-		<link rel="icon" href="key.svg" type="image/svg+xml" />
+		<link rel="icon" href="lock.svg" type="image/svg+xml" />
 		<style>
-			body { font-family:sans-serif; margin:1rem;}
+			* { box-sizing: border-box;}
+			html { _height:100%;display:flex;flex-direction:column;_justify-content:center;align-items:center;background-color:#333; color:white;}
+			body { padding-left:1.5rem;padding-right:1.5rem;font-family:sans-serif; font-size:85%;margin:0;_padding:2ch; _height:100%; _max-height:30rem; width:100%;max-width:50ch;display:flex;flex-direction:column; _border:1px solid lightgrey;_background-color:darkred;}
+			h1 { padding-top:1rem;padding-bottom:0.5ch;margin-top:0ch;margin-bottom:0;_text-align:center;color:orange;font-weight:normal;_font-size:200%;_border-radius:2em;_border:1px solid #666;_background-color:#eee;_border-bottom:1px solid green;border-bottom:1px solid #bbb;}
+			form { padding-bottom:1rem; }
 			input,button,textarea { font-size:1.15rem;}
-			::placeholder { font-style:italic; font-size:1rem}
-			button { margin-top:0.5rem;}
+			input,textarea { background-color:#333;color:white;letter-spacing:0.5px;margin:0;}
+			input:focus,textarea:focus { outline: 1px solid darkred;outline:none;}
+			::placeholder { font-style:italic; font-size:1rem; font-weight: normal;color:#888;_opacity:0;}
+			button { margin-top:1rem; _padding:1ch; border-style:solid;border-width:3px;border-radius:1.5rem;min-height:2.5rem; }
+			button:focus { outline:none;_box-shadow: 0 0 0 2pt orange;}
+			input[type="text"] { margin-top:0rem; _padding:0.4rem;border:none; _border-bottom:1px solid silver;margin-top:1.2rem;_padding-left:0.8rem;}
+			#secret { margin-top:0rem; _margin-left:1px;_margin-right:1px;_padding-right:0.4rem;_padding-left:0.4rem; _outline:1px solid silver;border:none;border-top:1.2rem solid transparent;border-bottom:1rem solid transparent;}
+			#secret:focus {_outline:1px solid darkred; outline:none;}
+			/*#generateForm.generated #domain { border-color:green;}*/
+			button[type="submit"] { background-color:chocolate; border-color:chocolate;color:white;}
+			button[type="submit"]:active { background-color:orange;color:black;}
+			button[type="submit"]:focus { outline:none; border-color:skyblue;}
+			#generateForm.generated button[type="submit"] { background-color:#333;_color:black;border-color:lightgreen;_color:darkgreen;}
+			#showPass , #hidePass { display:none;height:1.5rem;float:right; _margin-right:0.2ch;}
+			button.pass.show { font-family:monospace; font-size:150%;_font-weight:bold;}
+			button.pass.show #hidePass { display:inline-block;}
+			button.pass #showPass { display:inline-block;}
+			button.pass.show #showPass { display:none;}
+			label { letter-spacing:1px;position:relative; display:flex;flex-direction:column;border-bottom:1px solid #bbb;padding-top:0.8rem;padding-bottom:0.5rem;}
+			label > span:first-child { _position:absolute; _top:0.5em; _margin-left:0.4rem; color:darkslategrey;margin-bottom:0.2rem;}
+			label > input[type="text"] + span,label > textarea + span  { position:absolute;top:0.8rem; font-size:100%;color:#ddd;_margin-left:0.3rem;_padding-left:0.5rem; padding-right:1ch;transition: all 0.2s ease;}
+			/*label > input[type="text"]:not([required]) + span { color:#ddd;}*/
+			label > input[type="text"]:focus + span { color:paleturquoise;}
+
+			/*label > input[type="text"]:placeholder-shown:not(:focus) + span { top:1.5em;font-size:1rem;opacity:0.6;color:lightgrey;}*/
+			/*label > input[type="text"]:placeholder-shown:not(:focus):not([required]) + span::after { content:" (optional)";}*/
+			input[type="text"]:not(:focus)::placeholder { opacity:0;}
+			/*input[type="text"]:focus { border-bottom:2px solid orange;}*/
+			/*#domain { font-weight:bold;}*/
 		</style>
 
 	</head>
-	<body style="max-width:80ch">
-		<h1><span id="reset" style="float:right;font-size:75%" >&#x1f511;</span>Passgen</h1>
-		<form id="secretForm" style="display:flex;flex-direction:column" autocomplete="off">
-			<textarea id="secret" style="width:100%" placeholder="enter your secret" rows="5" title="Enter your secret"></textarea>
-			<div style="font-size:90%;display:flex;justify-content:flex-end;">
-				<span><span id="secretLength" style="display: inline-block;min-width:4ch;font-family:monospace;text-align:right;margin-right:1ch">_</span>ch&nbsp;|&nbsp;#<span id="secretHash" style="display: inline-block;width:4ch;font-family:monospace;text-align:right;">_</span></span>
+	<body>
+		<h1>
+			<!--span id="reset" style="display:inline-block;_border:5px solid black;border-radius:50%;font-size:110%;width:1.8em;height:1.8em;vertical-align:middle;background-color:#666;color:white;" title="set secret">&#x1f511;</span-->
+			<img id="reset" style="float:right;_border-radius:50%;_border:4px solid darkred;padding:0px;_width:1.2em;height:1.2em;vertical-align:middle;_background-color:darkred;_margin-right:0.5ch;" title="set secret" src="lock.svg"><span style="vertical-align:middle;">nano<span style="color:lightgreen">Pass</span></span>
+		</h1>
+		<form id="secretForm" style="height:100%;display:flex;flex-direction:column" autocomplete="off" spellcheck="false">
+			<label style="flex-grow:1">
+			<textarea id="secret" style="width:100%;height:100%;" required placeholder="type your passphrase" rows="10"></textarea>
+				<span>secret</span>
+			</label>
+			<div style="display:flex;justify-content:flex-end;align-items:center;margin-top:-1.7em;z-index:1;margin-right:1ch;">
+				<span style="margin-right:3ch"><span id="secretLength" style="display: inline-block;min-width:4ch;font-family:monospace;text-align:right;margin-right:1ch">0</span>ch</span>
+				<span style="margin-right:3ch">#<span id="secretHash" style="display: inline-block;width:4ch;font-family:monospace;text-align:right;">_</span></span>
+				<img id="showSecret" src="eye-open.svg" style="height:1.5rem" alt="show secret">
 			</div>
-			<button type="button" id="showSecret">show</button>
-			<button type="button" id="applySecret">apply</button>
+			<button type="submit" id="applySecret">apply</button>
 		</form>
-		<form id="generateForm" style="display:none;flex-direction:column">
-			<input id="domain" type="text" style="border:1px solid grey" placeholder="enter domain or copy URL to clipboard" title="press <Enter> to generate password into clipboard">
-			<button type="submit" id="copy-button">copy</button>
+		<form id="generateForm" style="height:100%;display:none;flex-direction:column" spellcheck="false">
+			<label>
+				<input name="domain" id="domain" type="text" required="required" placeholder="type a name or copy a URL" title="press <Enter> to copy password">
+				<span>domain</span>
+			</label>
+			<label>
+				<input name="principal" id="principal" type="text" placeholder="(optional)" title="username, account, ...," autocomplete="on">
+				<span>principal</span>
+			</label>
+			<button type="submit" id="generate">
+				copy password
+				<img id="showPass" src="eye-open.svg" alt="show password">
+				<img id="hidePass" src="eye-close.svg" alt="hide password">
+			</button>
+			<!--div style="flex-grow:1"></div-->
+			<div id="resetProgress"><span style="display:inline-block;height:0.8em;background-color:grey;width:0;margin-top:1rem"></span></div>
 		</form>
 
+		<!--script type="module">
+		//============ PWA stuff
+		if (navigator.serviceWorker != null) {
+		navigator.serviceWorker.register('/passgen/sw.js',{scope: '/passgen/'});
+		}
+		</script-->
 		<script type="module">
-			//============ PWA stuff
-			if (navigator.serviceWorker != null) {
-				navigator.serviceWorker.register('/passgen/sw.js',{scope: '/passgen/'});
-			}
-
 			//============ utf8
 			// from: https://github.com/emn178/js-sha256/blob/master/src/sha256.js
 
@@ -485,13 +537,30 @@
 			}
 
 
+			//============
+			let config= {
+				passwordTimeout:30,
+				trimL1DomainExceptions: [],
+				autofill: true,
+				autocopy: true,
+				keyLength: 20,
+				scrypt: {
+					N: 1<<17,
+					r:8,
+					p:1
+				}
+			};
+
 			//============ UI
 
 			const secretForm= document.getElementById("secretForm");
-			const btn= document.getElementById("copy-button");
-			const input= document.getElementById("domain");
-			const generateForm= document.getElementById("generateForm");
 			const secretInput= document.getElementById("secret");
+
+			const generateForm= document.getElementById("generateForm");
+			const btn= document.getElementById("generate");
+			const input= document.getElementById("domain");
+			const principalInput= document.getElementById("principal");
+			const resetProgress= document.getElementById("resetProgress");
 
 			let scrypt= null;
 			let lastDomain= null;
@@ -501,9 +570,7 @@
 					secretForm.style.display="flex";
 					generateForm.style.display="none";
 					input.readOnly= true;
-					input.style.backgroundColor= "lightgrey";
 					btn.disabled= true;
-					btn.firstChild.data= "<no secret set>";
 					secretInput.focus();
 				}
 				else {
@@ -511,17 +578,16 @@
 					generateForm.style.display="flex";
 					input.readOnly= false;
 					btn.disabled= false;
-					if(input.value===lastDomain) {
-						input.style.backgroundColor= "greenyellow";
-						btn.firstChild.data= "password copied to clipboard";
-					}
-					else {
-						input.style.backgroundColor= "initial" ;
-						btn.firstChild.data= "generate password";
-						input.focus();
-					}
+					resetProgress.firstChild.style.width= (resetTimeout*100/config.passwordTimeout)+"%";
 				}
 			};
+
+			const showPass= ()=>{
+				navigator.clipboard.readText().then(s=>btn.firstChild.data= s.match(/.{1,4}/g).join(" "));
+			}
+			const hidePass= ()=>{
+				btn.firstChild.data= "password copied";
+			}
 
 			//--------- generate
 
@@ -529,46 +595,101 @@
 			const isAZ= c=>c>='A'&& c<='Z';
 			const isaz= c=>c>='a'&& c<='z';
 
-			const resetDomain= ()=>{
-				navigator.clipboard.writeText("");
+			let resetInterval,resetTimeout= 0;
+
+			const resetPass= ()=>{
+				console.log("resetPass ",lastDomain);
+				if(lastDomain===null) return;
 				lastDomain= null;
+				clearInterval(resetInterval);
+				resetInterval= undefined;
+				resetTimeout= 0;
+				generateForm.classList.remove("generated");
+				btn.className= "";
+				btn.firstChild.data= "copy password";
+				updateUI();
+				navigator.clipboard.writeText("");
+			}
+			const resetPassOnTimeout= ()=>{
+				if(--resetTimeout<=0) resetPass();
 				updateUI();
 			};
 
 			const generate= async()=>{
-				input.style.backgroundColor= "lightgrey";
-				let skey= btoa(String.fromCharCode(...await scrypt(lastDomain= input.value,18)));
-				// trade some entropy for some compliance with typical (poorly designed) rules
-				// remove special chars
+				if(config.keyLength<12) throw new Error("config.keyLength<12");
+				resetPass();
+				let principal= principalInput.value;
+				let domain= input.value;
+				let skey= btoa(String.fromCharCode(
+						...await scrypt(
+							principal.length>0 ? principal+"."+domain:domain,
+							Math.ceil(config.keyLength*3/4)
+						)
+					));
+				// -- FIXME really ?
+				// trade some entropy for some compliance with typical (poorly designed) legacy rules
+				// remove special chars -- loosing .. very little entropy
+				console.log(skey.match(/.{1,4}/g).join(" "));
 				skey= skey.replaceAll("/","0").replaceAll("+","1");
-				let akey= [...skey.substring(0,7)];
-				// ensure key starts with 1 alphabetic
+				let akey= [...skey.substring(0,11)];
+				// ensure key starts with 1 alphabetic -- loosing ~0.25 bit of entropy
 				if(is09(akey[0])) akey[0] = "ABCDEFGHIJ"[parseInt(akey[0])];
-				// ensure key has a digit in first 7 chars
+				// ensure key has a digit in first 7 chars -- loosing ~0.8 bit of entropy
 				if(!akey.some(is09)) akey[1]= "0123456789"[skey.charCodeAt(1)%10];
-				// ensure key has mixed caps in first 7 chars
-				if(!akey.some(isAZ)) akey[0]= akey[0].toLowerCase();
-				else if(!akey.some(isaz)) akey[0]= akey[0].toUpperCase();
-				// add a special character in first 8 chars
+				// ensure key has mixed caps in first 7 chars -- loosing <0.05 bit of entropy
+				if(!akey.some(isAZ)) akey[0]= akey[0].toUpperCase();
+				else if(!akey.some(isaz)) akey[0]= akey[0].toLowerCase();
+				// insert a special character between 2nd and 12th char -- loosing ~3 bits of entropy
 				// (? choosen because of https://support.globalsign.com/account-finance/special-characters-disallowed-passwords)
-				akey.push("?",...[...skey.substring(7)]);
-				// prevent repetition >2
+				akey.splice(1+skey.charCodeAt(11)%11,0,'?');
+				akey.push(...[...skey.substring(12)]);
+				// prevent repetition >2 -- loosing < 0.002*keyLength bit of entropy ?
 				for(let i= 2; i<akey.length; ++i) {
-					let c= akey[i-1];
-					if(akey[i]===c && c===akey[i-2]) {
-						akey[i-1]= is09(c) ? "1234567890"[c.charCodeAt(0)%10]
+					let c= akey[i];
+					if(c===akey[i-1] && c===akey[i-2]) {
+						akey[i]= is09(c) ? "1234567890"[c.charCodeAt(0)%10]
 						: isAZ(c) ? c.toLowerCase()
 						: c.toUpperCase();
 					}
 				}
-				navigator.clipboard.writeText(akey.join(""));
+				akey.length= config.keyLength;
 
-				updateUI();
-				setTimeout(resetDomain, 10000);
+				try {
+					resetPass();
+					lastDomain= domain;
+					await navigator.clipboard.writeText(akey.join(""));
+					generateForm.classList.add("generated");
+					btn.classList.add("pass");
+					hidePass();
+					/*btn.focus();*/
+					resetTimeout= config.passwordTimeout;
+					resetInterval= setInterval(resetPassOnTimeout, 1000);
+					resetProgress.firstChild.style.width= "100%"
+				}
+				catch(err) {
+					resetPass();
+				}
 			};
 
-			generateForm.addEventListener("submit", (ev)=>{ev.preventDefault();generate()});
-			input.addEventListener("input", updateUI)
+			resetProgress.addEventListener("click", ev=>{
+					resetTimeout= config.passwordTimeout;
+					resetProgress.firstChild.style.width= "100%"
+				});
+			generateForm.addEventListener("submit", ev=>{
+					ev.preventDefault();
+					if(input.value===lastDomain) {
+						if(btn.classList.toggle("show")) {
+							showPass();
+						}
+						else {
+							hidePass();
+						}
+					}
+					else if(input.value!=="") generate();
+					else input.focus();
+				});
+			input.addEventListener("input", resetPass)
+			principalInput.addEventListener("input", resetPass)
 
 			//--------- auto generate
 
@@ -578,12 +699,14 @@
 				result= result.substring(
 					result.startsWith("https://")?8
 					:result.startsWith("http://")?7
-					:result.length).split("\.");
-				if(result.length<3 || [...result[result.length-1]].every(is09)) {
-					navigator.clipboard.writeText("");
+					:result.startsWith("www.")? 0
+					:result.length).split("/",1)[0].split("\.");
+				if(result.length<2 || [...result[result.length-1]].every(is09)) {
 					return;
 				}
-				input.value= result[result.length-2];
+				resetPass();
+				let l2domain= result[result.length-2];
+				input.value= l2domain+(config.trimL1DomainExceptions!=="*" && config.trimL1DomainExceptions.indexOf(l2domain)<0 ? "" : "."+result[result.length-1].split("/",1));
 				generate();
 			};
 
@@ -602,11 +725,11 @@
 
 			//--------- secret's input
 
-			document.getElementById("reset").addEventListener("click",()=>{scrypt= null;updateUI();});
+			document.getElementById("reset").addEventListener("click",()=>{scrypt= null;lastDomain= undefined;resetPass();});
 
 			/*
 			document.getElementById("applySecret").addEventListener("click",()=>{
-					scrypt= getScrypt(secretInput.value,1<<17,8,1,(percent)=>{
+					scrypt= getScrypt(secretInput.value,config.scrypt.N,config.scrypt.r,config.scrypt.p,(percent)=>{
 							btn.firstChild.data= (percent*100+"").substring(0,4)+"%";
 							return new Promise(resolve=>{setTimeout(resolve, 0)})
 						});
@@ -670,18 +793,28 @@
 				secretInput.value= maskedSecret;
 				maskedSecret= null;
 			};
-			document.getElementById("showSecret").addEventListener("mousedown",showSecret);
-			document.getElementById("showSecret").addEventListener("touchstart",showSecret);
-			document.getElementById("showSecret").addEventListener("mouseup",hideSecret);
-			document.getElementById("showSecret").addEventListener("touchend",hideSecret);
+			{
+				const showSecretBtn= document.getElementById("showSecret");
+				showSecretBtn.addEventListener("mousedown",showSecret);
+				showSecretBtn.addEventListener("touchstart",showSecret);
+				showSecretBtn.addEventListener("mouseup",hideSecret);
+				showSecretBtn.addEventListener("touchend",hideSecret);
+			}
 
-			document.getElementById("applySecret").addEventListener("click",()=>{
+			secretForm.addEventListener("submit", ev=>{
+					ev.preventDefault();
+					if(secretInput.value==="") {
+						secretInput.focus();
+						return;
+					}
 					secretInput.value= "";
-					scrypt= getScrypt(secret.join(""),1<<17,8,1,(percent)=>{
+					scrypt= getScrypt(secret.join(""),config.scrypt.N,config.scrypt.r,config.scrypt.p,(percent)=>{
 							btn.firstChild.data= (percent*100+"").substring(0,4)+"%";
 							return new Promise(resolve=>{setTimeout(resolve, 0)})
 						});
+					resetPass();
 					updateUI();
+					input.focus();
 				});
 
 
